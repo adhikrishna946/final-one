@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Fresh Farm Palette */
+    --background: 45 30% 97%;
+    --foreground: 30 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 30 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 20% 15%;
+
+    /* Fresh Green - Primary */
+    --primary: 142 52% 36%;
+    --primary-foreground: 45 30% 97%;
+
+    /* Warm Terracotta - Secondary */
+    --secondary: 25 70% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted Sage */
+    --muted: 140 15% 92%;
+    --muted-foreground: 140 10% 40%;
+
+    /* Warm Accent */
+    --accent: 35 85% 55%;
+    --accent-foreground: 30 20% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 140 15% 85%;
+    --input: 140 15% 85%;
+    --ring: 142 52% 36%;
+
+    --radius: 0.75rem;
+
+    /* Custom Farm Colors */
+    --farm-green: 142 52% 36%;
+    --farm-green-light: 142 40% 50%;
+    --farm-terracotta: 25 70% 50%;
+    --farm-cream: 45 30% 97%;
+    --farm-brown: 30 30% 25%;
+    --farm-sage: 140 25% 75%;
+    --farm-wheat: 42 60% 70%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(142 52% 36%) 0%, hsl(140 40% 45%) 50%, hsl(35 85% 55%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(45 30% 97%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(35 85% 55%) 0%, hsl(25 70% 50%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(30 20% 15% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(30 20% 15% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(30 20% 15% / 0.2);
+
+    /* Sidebar */
+    --sidebar-background: 140 20% 98%;
+    --sidebar-foreground: 30 20% 15%;
+    --sidebar-primary: 142 52% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 140 15% 92%;
+    --sidebar-accent-foreground: 30 20% 15%;
+    --sidebar-border: 140 15% 90%;
+    --sidebar-ring: 142 52% 36%;
+  }
+
+  .dark {
+    --background: 30 15% 10%;
+    --foreground: 45 20% 95%;
+
+    --card: 30 15% 12%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 30 15% 12%;
+    --popover-foreground: 45 20% 95%;
+
+    --primary: 142 45% 45%;
+    --primary-foreground: 30 15% 10%;
+
+    --secondary: 25 60% 40%;
+    --secondary-foreground: 45 20% 95%;
+
+    --muted: 30 15% 18%;
+    --muted-foreground: 45 10% 60%;
+
+    --accent: 35 70% 45%;
+    --accent-foreground: 45 20% 95%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 45 20% 95%;
+
+    --border: 30 15% 20%;
+    --input: 30 15% 20%;
+    --ring: 142 45% 45%;
+
+    --sidebar-background: 30 15% 8%;
+    --sidebar-foreground: 45 20% 95%;
+    --sidebar-primary: 142 45% 45%;
+    --sidebar-primary-foreground: 30 15% 10%;
+    --sidebar-accent: 30 15% 15%;
+    --sidebar-accent-foreground: 45 20% 95%;
+    --sidebar-border: 30 15% 18%;
+    --sidebar-ring: 142 45% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .farm-hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .farm-card {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .farm-shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .farm-shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .farm-text-gradient {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
