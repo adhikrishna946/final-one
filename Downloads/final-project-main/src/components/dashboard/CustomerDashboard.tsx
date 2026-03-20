@@ -27,8 +27,8 @@ interface Product {
   market_price?: number | null;
   farm_lat?: number | null;
   farm_lng?: number | null;
-  delivery_charge?: number | null;
   delivery_distance?: number | null;
+  farmer_price?: number | null;
 }
 
 interface CartItem {
@@ -142,7 +142,8 @@ export default function CustomerDashboard() {
         return {
           ...p,
           farm_location: farm?.location || null,
-          market_price: null,
+          market_price: p.market_price || null,
+          farmer_price: p.farmer_price || p.price || null,
           farm_lat: farm?.lat ?? null, // Start with DB coords if any exist
           farm_lng: farm?.lng ?? null,
           delivery_distance: null, 
@@ -232,7 +233,7 @@ export default function CustomerDashboard() {
       if (marketPriceMap.size > 0) {
         setProducts(prev => prev.map(p => ({
           ...p,
-          market_price: marketPriceMap.get(p.name) || null,
+          market_price: marketPriceMap.get(p.name) || p.market_price || null,
         })));
       }
     }
@@ -550,22 +551,29 @@ export default function CustomerDashboard() {
                       
                       {/* Pricing section */}
                       <div className="mt-3 space-y-1">
-                        <p className="font-bold text-primary text-lg">₹{product.price}/{product.unit}</p>
+                        <p className="font-bold text-primary text-lg">Farmer Price: ₹{product.farmer_price || product.price}/{product.unit}</p>
                         
                         {/* Market price comparison */}
-                        {product.market_price && (
-                          <div className="flex items-center gap-1.5 text-xs">
-                            <TrendingUp className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-muted-foreground">Market: ₹{product.market_price}/kg</span>
-                            {product.price < product.market_price ? (
-                              <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-0">Below Market</Badge>
-                            ) : product.price > product.market_price ? (
-                              <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border-0">Above Market</Badge>
-                            ) : (
-                              <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4">At Market</Badge>
-                            )}
-                          </div>
-                        )}
+                        <div className="flex flex-col gap-1 text-xs">
+                          {product.market_price ? (
+                            <div className="flex items-center gap-1.5">
+                              <TrendingUp className="w-3 h-3 text-muted-foreground" />
+                              <span className="text-muted-foreground">Market Price: ₹{product.market_price}/{product.unit || 'kg'}</span>
+                              {(product.farmer_price || product.price) < product.market_price ? (
+                                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-0">Better Deal</Badge>
+                              ) : (product.farmer_price || product.price) > product.market_price ? (
+                                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border-0">Premium Price</Badge>
+                              ) : (
+                                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4">At Market</Badge>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1.5">
+                              <TrendingUp className="w-3 h-3 text-muted-foreground" />
+                              <span className="text-muted-foreground">Market price not available</span>
+                            </div>
+                          )}
+                        </div>
 
                         {/* Delivery charge */}
                         {product.delivery_distance !== null && product.delivery_distance !== undefined && product.delivery_distance > 80 ? (

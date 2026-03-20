@@ -25,6 +25,8 @@ interface Product {
   stock_quantity: number | null;
   is_available: boolean | null;
   expiry_date: string | null;
+  market_price: number | null;
+  farmer_price: number | null;
 }
 
 interface MarketPrice {
@@ -214,6 +216,8 @@ export default function FarmerDashboard() {
         image_url: imageUrl,
         farmer_id: profile.id,
         expiry_date: expiryDate || null,
+        farmer_price: parseFloat(price),
+        market_price: marketPrice?.market_price?.per_kg || editingProduct?.market_price || null,
       };
       
       if (editingProduct) {
@@ -530,7 +534,7 @@ export default function FarmerDashboard() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="price">Price (₹)</Label>
+                  <Label htmlFor="price">Farmer Price (₹)</Label>
                   <Input
                     id="price"
                     type="number"

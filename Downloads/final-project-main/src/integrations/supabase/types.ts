@@ -194,9 +194,11 @@ export type Database = {
           description: string | null
           expiry_date: string | null
           farmer_id: string
+          farmer_price: number | null
           id: string
           image_url: string | null
           is_available: boolean | null
+          market_price: number | null
           name: string
           price: number
           stock_quantity: number | null
@@ -209,9 +211,11 @@ export type Database = {
           description?: string | null
           expiry_date?: string | null
           farmer_id: string
+          farmer_price?: number | null
           id?: string
           image_url?: string | null
           is_available?: boolean | null
+          market_price?: number | null
           name: string
           price: number
           stock_quantity?: number | null
@@ -224,9 +228,11 @@ export type Database = {
           description?: string | null
           expiry_date?: string | null
           farmer_id?: string
+          farmer_price?: number | null
           id?: string
           image_url?: string | null
           is_available?: boolean | null
+          market_price?: number | null
           name?: string
           price?: number
           stock_quantity?: number | null
